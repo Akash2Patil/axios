@@ -27,10 +27,10 @@ const App = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className="flex gap-10 flex-wrap">
           {products.map((product) => (
-            <div key={product.id} className="p-3 border border-gray-700 mb-2">
-              <img src={product.image} alt="" />
+            <div key={product.id} className="p-3 border border-gray-700 mb-2 w-[20%] h-auto">
+              <img className="w-[200px]" src={product.image} alt="" />
               <h2 className="text-xl">{product.title}</h2>
               <p className="text-gray-400">${product.price}</p>
             </div>
