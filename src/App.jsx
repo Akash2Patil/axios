@@ -1,44 +1,43 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import axios from 'axios'
+import React from 'react'
 
 const App = () => {
-  const [products, setProducts] = useState([]); // State to store API data
-  const [loading, setLoading] = useState(true); // State to handle loading
+  const api = "https://fakestoreapi.com/products";
+  const getproducts = () => {
 
-  useEffect(() => {
-    axios
-      .get("https://fakestoreapi.com/products")
+    axios.get(api)
       .then((response) => {
         console.log(response);
-        
-        setProducts(response.data); // Store API response in state
-        setLoading(false);
       })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      });
-  }, []);
+      .catch((err) => {
+        console.log(err);
 
-  return (
-    <div className="w-full h-auto bg-zinc-900 text-white p-5">
-      <h1 className="text-2xl font-bold mb-4">Hi, my name is Akash Patil</h1>
-      
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="flex gap-10 flex-wrap">
-          {products.map((product) => (
-            <div key={product.id} className="p-3 border border-gray-700 mb-2 w-[20%] h-auto">
-              <img className="w-[200px]" src={product.image} alt="" />
-              <h2 className="text-xl">{product.title}</h2>
-              <p className="text-gray-400">${product.price}</p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
+      })
+  }
+  const addproducts = () => {
+    axios.post(api, {
+      "id": 0,
+      "title": "my products",
+      "price": 0.1,
+      "description": "best specks",
+      "category": "specks",
+      "image": "http://example.com"
+    }).then((res) => {
+      console.log(res);
 
-export default App;
+    }).catch(err => console.log(err));
+  }
+
+return (
+  <div className='px-10 py-20 w-full h-screen'>
+    <button onClick={getproducts} className='bg-red-500 px-4 py-3 text-white rounded'>
+      get products
+    </button>
+  <button onClick={addproducts} className='bg-green-500 px-4 py-3 text-white rounded'>
+        add products
+  </button>
+  </div>
+)
+}
+
+export default App
