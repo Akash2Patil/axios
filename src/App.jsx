@@ -1,8 +1,9 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const App = () => {
   const[products,setproducts]= useState([])
+  
   const api = "https://fakestoreapi.com/products";
   const getproducts = () => {
 
@@ -30,6 +31,10 @@ const App = () => {
     }).catch(err => console.log(err));
   }
   console.log({products});
+
+  useEffect(()=>{
+    getproducts()
+  },[])
   
 return (
   <div className='px-10 py-20 w-full h-screen'>
@@ -41,7 +46,7 @@ return (
   </button>
   <br /><br />
   <ul>
-    {products.length > 0 ? products.map(pro => <li className='bg-red-500 w-full py-3 px-5 text-white mb-2'>{pro.title}</li>) : <h1>loading...</h1> }
+    {products.length > 0 ? products.map(pro => <li key={pro.id} className='bg-red-500 w-full py-3 px-5 text-white mb-2'>{pro.title}</li>) : <h1>loading...</h1> }
     
   </ul>
   </div>
