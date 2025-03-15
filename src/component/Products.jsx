@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import instance from '../utils/axios';
 
 const Products = () => {
-    const[products,setproducts]= useState([])
-  
-  const api = "https://fakestoreapi.com/products";
+  const [products, setproducts] = useState([])
+
   const getproducts = () => {
 
-    axios.get(api)
+    instance.get("/products")
       .then((response) => {
         // console.log(response);
         setproducts(response.data)
@@ -30,34 +29,34 @@ const Products = () => {
 
     }).catch(err => console.log(err));
   }
-  const delproducts = ()=>{
+  const delproducts = () => {
     setproducts([])
   }
-  console.log({products});
+  console.log({ products });
 
-//   useEffect(()=>{
-//     getproducts()
-//   },[])
-    return (
-        <div className='mt-10 px-10'>
-            <div className="btn flex gap-5">
-            <button onClick={getproducts} className='bg-blue-500 px-4 py-3 text-white rounded cursor-pointer'>
-                Get products
-            </button>
-            <button onClick={addproducts} className='bg-green-500 px-4 py-3 text-white rounded cursor-pointer'>
-                Add products
-            </button>
-            <button onClick={delproducts} className='bg-red-500 px-4 py-3 text-white rounded cursor-pointer'>
-                Delete products
-            </button>
-            </div>
-            <br /><br />
-            <ul>
-                {products.length > 0 ? products.map(pro => <li key={pro.id} className='bg-red-500 w-full py-3 px-5 text-white mb-2'>{pro.title}</li>) : <h1>loading...</h1>}
+  useEffect(() => {
+    getproducts()
+  }, [])
+  return (
+    <div className='mt-10 px-10'>
+      <div className="btn flex gap-5">
+        {/* <button onClick={getproducts} className='bg-blue-500 px-4 py-3 text-white rounded cursor-pointer'>
+          Get products
+        </button>
+        <button onClick={addproducts} className='bg-green-500 px-4 py-3 text-white rounded cursor-pointer'>
+          Add products
+        </button> 
+        <button onClick={delproducts} className='bg-red-500 px-4 py-3 text-white rounded cursor-pointer'>
+          Delete products
+        </button>*/}
+      </div>
+      <br /><br />
+      <ul>
+        {products.length > 0 ? products.map(pro => <li key={pro.id} className='bg-red-500 w-full py-3 px-5 text-white mb-2'>{pro.title}</li>) : <h1>loading...</h1>}
 
-            </ul>
-        </div>
-    )
+      </ul>
+    </div>
+  )
 }
 
 export default Products

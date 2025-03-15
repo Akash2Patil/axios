@@ -5,7 +5,7 @@ const App = () => {
   
   
 return (
-  <div className='w-full h-screen'>
+  <div>
     <Nav/>
     <Routing/>
     
